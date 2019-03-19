@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -8,49 +9,49 @@ public class Main {
      private static int rep;
      private static int risk;
      private static int time = 10;
-    public static void main(String[] args) {
 
-        playMeetingWithCustomerCase(rep,risk,time);
+     private static int min = 1;
+     private static int max = 10;
+    private static Random random = new Random();
+
+    public static void main(String[] args) {
+        /*for(int i = 0; i < 20; i++) {
+            System.out.println("rand = " + getRandom());
+        }*/
+        playMeetingWithCustomerCase();
     }
 
-    private static void playMeetingWithCustomerCase(int rep,int risk,int time) {
+    private static void playMeetingWithCustomerCase() {
         Scanner sc = new Scanner(System.in);
+
         System.out.println("1. Вы на встрече с заказчиком. " +
                 "Вам необходимо договориться о стоимости проекта. " +
                 "Бюджет заказчика = 100 рублей. " +
                 "Но Вы рассчитали приблизительную стоимость, и она оказалась равна 200. " +
                 "Данная сумма рассчитана с учетом возникновения возможных рисков.");
         System.out.println("Ваши действия?");
-        System.out.println("1. Предложить сумму в 200 р.\n " +
+        System.out.println("1. Предложить сумму в 200 р.\n" +
                 "2. Предложить сумму в 150р., поскольку для вас это выгодно \n" +
                 "3. Согласиться на бюджет в 100р.");
         answer = sc.nextInt();
         if (answer == 1) {
-            int a = 0;
-            int b = 10;
-            int random_number1 = a + (int) (Math.random() * b);
-            if (random_number1 >=5) {
+            if (getRandom() > 5) {
                 rep = rep + 3;
                 time = time - 1;
-                System.out.println("rep: " + rep);
-                System.out.println("time: " + time);
-                playCommunicationWithTeamCase(time,risk,rep);
+                showParams();
+                playCommunicationWithTeamCase();
             } else {
                 System.out.println("Вам не повезло, заказчик отказался, вы потеряли проект.\n GAME OVER");
                 exit(0);
             }
         }
         if (answer == 2) {
-            int a = 0;
-            int b = 10;
-            int random_number1 = a + (int) (Math.random() * b);
-            if (random_number1 >=5) {
+            if (getRandom() > 5) {
                 rep += 1;
                 time -= 1;
                 risk += 2;
-                System.out.println(rep);
-                System.out.println(time);
-                playCommunicationWithTeamCase(time,risk,rep);
+                showParams();
+                playCommunicationWithTeamCase();
             } else {
                 System.out.println("Вам не повезло, заказчик отказался, вы потеряли проект.\n GAME OVER");
                 exit(0);
@@ -60,11 +61,12 @@ public class Main {
             rep = rep - 1;
             risk = risk + 2;
             time = time - 1;
-            playCommunicationWithTeamCase(time,risk,rep);
+            showParams();
+            playCommunicationWithTeamCase();
         }
     }
 
-    private static void playCommunicationWithTeamCase(int time,int risk,int rep) {
+    private static void playCommunicationWithTeamCase() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("2. Вы понимаете, что успеваете реализовать проект раньше срока и у вас есть запас времени. " +
@@ -75,36 +77,33 @@ public class Main {
                 " 2. Остаться работать");
         answer = sc.nextInt();
         if (answer == 1) {
-            int a = 0;
-            int b = 10;
-            int random_number1 = a + (int) (Math.random() * b);
-            if (random_number1 >=5) {
+            if (getRandom() > 5) {
                 System.out.println("Сплотиться удалось");
                 rep = rep + 2;
                 time = time - 2;
                 risk = risk + 1;
-                playDeveloperGetSickCase(time,risk,rep);
+                showParams();
+                playDeveloperGetSickCase();
 
             } else {
-                System.out.println("Сплотиться не удалось:(");
+                System.out.println("Сплотиться не удалось.Все переругались :(");
                 rep = rep - 2;
                 risk = risk + 2;
                 time = time - 2;
-                playDeveloperGetSickCase(time,risk,rep);
+                showParams();
+                playDeveloperGetSickCase();
             }
         }
         if (answer == 2) {
             rep = rep - 1;
             risk = risk - 1;
             time = time - 1;
-            System.out.println("risk: " + risk);
-            System.out.println("rep: "+ rep);
-            System.out.println("\n");
-            playDeveloperGetSickCase(time,risk,rep);
+            showParams();
+            playDeveloperGetSickCase();
         }
     }
 
-    private static void playDeveloperGetSickCase(int time,int risk,int rep) {
+    private static void playDeveloperGetSickCase() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("3. В процессе разработки проекта ушел Senior разработчик. \n");
@@ -115,17 +114,19 @@ public class Main {
         if (answer == 1) {
             risk = risk + 2;
             time = time - 2;
-            playTroubleWithBetaCase(time,risk,rep);
+            showParams();
+            playTroubleWithBetaCase();
         }
         if (answer == 2) {
             rep = rep + 2;
             risk = risk + 3;
             time = time - 1;
-            playTroubleWithBetaCase(time,risk,rep);
+            showParams();
+            playTroubleWithBetaCase();
         }
     }
 
-    private static void playTroubleWithBetaCase(int time,int risk,int rep) {
+    private static void playTroubleWithBetaCase() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("4. Вы выкатили бета-версию проекта. " +
@@ -139,27 +140,37 @@ public class Main {
             rep = rep - 3;
             time = time - 1;
             risk = risk - 1;
-            check(time,risk,rep);
+            showParams();
+            check();
         }
         if (answer == 2) {
             rep = rep - 2;
             risk = risk + 2;
             time = time - 1;
-            check(time,risk,rep);
+            showParams();
+            check();
         }
     }
     
     //checking that parameters are good
-    private static void check(int time,int risk,int rep) {
+    private static void check() {
         if (rep >=0 && risk < 7 && time >= 5) {
             System.out.println("Вы победили. CONGRATS");
             exit(0);
         } else {
             System.out.println("Вы проиграли :(");
-            System.out.println("Репутация: " + rep);
-            System.out.println("Риски: " + risk);
-            System.out.println("Время: " + time);
             exit(0);
         }
+    }
+
+    private static void showParams() {
+        System.out.println("Риски: " + risk);
+        System.out.println("Репутация: "+ rep);
+        System.out.println("Время: "+ time);
+        System.out.println("\n");
+    }
+
+    private static int getRandom() {
+        return random.nextInt(max - min + 1) + min;
     }
 }
