@@ -15,9 +15,6 @@ public class Main {
     private static Random random = new Random();
 
     public static void main(String[] args) {
-        /*for(int i = 0; i < 20; i++) {
-            System.out.println("rand = " + getRandom());
-        }*/
         playMeetingWithCustomerCase();
     }
 
@@ -25,9 +22,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("1. Вы на встрече с заказчиком. " +
-                "Вам необходимо договориться о стоимости проекта. " +
-                "Бюджет заказчика = 100 рублей. " +
-                "Но Вы рассчитали приблизительную стоимость, и она оказалась равна 200. " +
+                "Вам необходимо договориться о стоимости проекта.\n" +
+                "Бюджет заказчика = 100 рублей. \n" +
+                "Но Вы рассчитали приблизительную стоимость, и она оказалась равна 200.\n" +
                 "Данная сумма рассчитана с учетом возникновения возможных рисков.");
         System.out.println("Ваши действия?");
         System.out.println("1. Предложить сумму в 200 р.\n" +
@@ -35,7 +32,7 @@ public class Main {
                 "3. Согласиться на бюджет в 100р.");
         answer = sc.nextInt();
         if (answer == 1) {
-            if (getRandom() > 5) {
+            if (getRandomBool()) {
                 rep = rep + 3;
                 time = time - 1;
                 showParams();
@@ -46,7 +43,7 @@ public class Main {
             }
         }
         if (answer == 2) {
-            if (getRandom() > 5) {
+            if (getRandomBool() && getRandomBool()) {
                 rep += 1;
                 time -= 1;
                 risk += 2;
@@ -69,15 +66,15 @@ public class Main {
     private static void playCommunicationWithTeamCase() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("2. Вы понимаете, что успеваете реализовать проект раньше срока и у вас есть запас времени. " +
-                "При этом у вас низкий уровень коммуникации с командой. " +
+        System.out.println("2. Вы понимаете, что успеваете реализовать проект раньше срока и у вас есть запас времени.\n" +
+                "При этом у вас низкий уровень коммуникации с командой.\n" +
                 "Есть возможность выехать вместе за город, чтобы отдохнуть и пообщаться.");
         System.out.println("Ваши действия?");
         System.out.println(" 1.Выехать за город для сплочения с командой \n" +
                 " 2. Остаться работать");
         answer = sc.nextInt();
         if (answer == 1) {
-            if (getRandom() > 5) {
+            if (getRandomBool()) {
                 System.out.println("Сплотиться удалось");
                 rep = rep + 2;
                 time = time - 2;
@@ -106,7 +103,7 @@ public class Main {
     private static void playDeveloperGetSickCase() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("3. В процессе разработки проекта ушел Senior разработчик. \n");
+        System.out.println("3. В процессе разработки проекта ушел Senior разработчик.\n");
         System.out.println("Ваши действия?");
         System.out.println(" 1) Нанять нового сотрудника\n" +
                 " 2) Повысить middle - разработчика. Без найма нового сотрудника ");
@@ -129,8 +126,8 @@ public class Main {
     private static void playTroubleWithBetaCase() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("4. Вы выкатили бета-версию проекта. " +
-                "От пользователей поступило много жалоб. " +
+        System.out.println("4. Вы выкатили бета-версию проекта.\n" +
+                "От пользователей поступило много жалоб.\n" +
                 "Вы сообщили об этих проблемах команде, и каждый снимает с себя ответственность.");
         System.out.println("Ваши действия?");
         System.out.println(" 1) Наложить штраф за провал. -5р каждому.\n" +
@@ -167,10 +164,13 @@ public class Main {
         System.out.println("Риски: " + risk);
         System.out.println("Репутация: "+ rep);
         System.out.println("Время: "+ time);
-        System.out.println("\n");
     }
 
     private static int getRandom() {
         return random.nextInt(max - min + 1) + min;
+    }
+
+    private static boolean getRandomBool() {
+        return random.nextBoolean();
     }
 }
